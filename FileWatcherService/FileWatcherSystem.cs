@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,8 @@ namespace FileWatcherService
         private string _monitoredPath;
         private ILogger _logger;
         private FileSystemWatcher _fileSystemWatcher;
+        
+
         public FileWatcherSystem(ILogger logger, string pathToWatch)
         {
             _logger = logger;
@@ -30,7 +33,7 @@ namespace FileWatcherService
 
         private void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
         {
-            _logger.LogInformation("File created: { 0}", e.Name);
+            _logger.LogInformation("File created: {0}", e.Name);
         }
 
         private void FileSystemWatcher_Renamed(object sender, FileSystemEventArgs e)
