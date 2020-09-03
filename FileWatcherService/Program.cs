@@ -22,7 +22,7 @@ namespace FileWatcherService
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
-                .WriteTo.File(@"C:\Users\thelittlecitizen13\Desktop\logs\FileMonitor.txt")
+                .WriteTo.File(configuration.GetValue<string>("Configuration:LogFile_Path"))
                 .CreateLogger();
 
             try
@@ -45,6 +45,7 @@ namespace FileWatcherService
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
+                .UseWindowsService()
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
